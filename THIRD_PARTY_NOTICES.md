@@ -7,7 +7,7 @@
 - 上游项目：<https://gitee.com/y_project/RuoYi-Vue>
 - 原始版权声明：`Copyright (c) 2018 RuoYi`
 - 许可：MIT，完整原文见 [licenses/RuoYi-MIT.txt](licenses/RuoYi-MIT.txt)。
-- 项目根目录 [LICENSE](LICENSE) 保留目标公开仓库选择的 Apache License 2.0；上述来源代码的 MIT 声明单独完整保留。
+- 项目根目录 [LICENSE](LICENSE) 使用 Apache License 2.0；上述来源代码的 MIT 声明单独完整保留。
 
 这里的来源说明不表示上游维护者参与、认可或支持本项目。
 
