@@ -1,0 +1,44 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!**/.env.example
+**/application-local.*
+**/application-secret.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+
+# Runtime data is never source code
+data/
+uploads/
+logs/
+*.log
+*.db
+*.mv.db
+*.trace.db
+*.dump
+*.sql.gz
+*.hprof
+
+# Generated files and local tools
+**/node_modules/
+**/dist/
+**/target/
+**/coverage/
+**/test-results/
+**/playwright-report/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.zip
+__pycache__/
+.venv/
+
+# Temporary agent skills are deliberately not part of this repository
+.agents/
+.codex/
+work/

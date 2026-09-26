@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.chronicle.timeline.mapper.TimelineMapper">
+
+    <resultMap id="TlWorldlineResult" type="TlWorldline">
+        <id property="worldlineId" column="worldline_id"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="worldlineName" column="worldline_name"/>
+        <result property="gameName" column="game_name"/>
+        <result property="mainCountry" column="main_country"/>
+        <result property="startYear" column="start_year"/>
+        <result property="currentYear" column="current_year"/>
+        <result property="narrativeStyle" column="narrative_style"/>
+        <result property="description" column="description"/>
+        <result property="coverUrl" column="cover_url"/>
+        <result property="visibility" column="visibility"/>
+        <result property="divergenceScore" column="divergence_score"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="eventCount" column="event_count"/>
+        <result property="stageCount" column="stage_count"/>
+        <result property="chapterCount" column="chapter_count"/>
+        <result property="illustrationCount" column="illustration_count"/>
+    </resultMap>
+
+    <resultMap id="TlScreenshotResult" type="TlScreenshot">
+        <id property="screenshotId" column="screenshot_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="originalName" column="original_name"/>
+        <result property="aiStatus" column="ai_status"/>
+        <result property="aiRawResult" column="ai_raw_result"/>
+        <result property="draftEventJson" column="draft_event_json"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <resultMap id="TlEventResult" type="TlEvent">
+        <id property="eventId" column="event_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="screenshotId" column="screenshot_id"/>
+        <result property="stageId" column="stage_id"/>
+        <result property="eventTitle" column="event_title"/>
+        <result property="eventDate" column="event_date"/>
+        <result property="eventYear" column="event_year"/>
+        <result property="eventType" column="event_type"/>
+        <result property="country" column="country"/>
+        <result property="relatedForces" column="related_forces"/>
+        <result property="importanceLevel" column="importance_level"/>
+        <result property="divergenceFlag" column="divergence_flag"/>
+        <result property="summary" column="summary"/>
+        <result property="aiDescription" column="ai_description"/>
+        <result property="impactAnalysis" column="impact_analysis"/>
+        <result property="novelPotential" column="novel_potential"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <resultMap id="TlStageResult" type="TlStage">
+        <id property="stageId" column="stage_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="stageName" column="stage_name"/>
+        <result property="startYear" column="start_year"/>
+        <result property="endYear" column="end_year"/>
+        <result property="stageTheme" column="stage_theme"/>
+        <result property="stageSummary" column="stage_summary"/>
+        <result property="novelStatus" column="novel_status"/>
+        <result property="imageStatus" column="image_status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="eventCount" column="event_count"/>
+    </resultMap>
+
+    <resultMap id="TlNationStateResult" type="TlNationState">
+        <id property="stateId" column="state_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="countryName" column="country_name"/>
+        <result property="recordYear" column="record_year"/>
+        <result property="government" column="government"/>
+        <result property="economyStatus" column="economy_status"/>
+        <result property="militaryStatus" column="military_status"/>
+        <result property="diplomacyStatus" column="diplomacy_status"/>
+        <result property="socialConflict" column="social_conflict"/>
+        <result property="aiSummary" column="ai_summary"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <resultMap id="TlCharacterResult" type="TlCharacter">
+        <id property="characterId" column="character_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="characterName" column="character_name"/>
+        <result property="country" column="country"/>
+        <result property="faction" column="faction"/>
+        <result property="identityName" column="identity_name"/>
+        <result property="characterType" column="character_type"/>
+        <result property="personality" column="personality"/>
+        <result property="biography" column="biography"/>
+        <result property="aiGenerated" column="ai_generated"/>
+        <result property="portraitUrl" column="portrait_url"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <resultMap id="TlChapterResult" type="TlChapter">
+        <id property="chapterId" column="chapter_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="stageId" column="stage_id"/>
+        <result property="chapterTitle" column="chapter_title"/>
+        <result property="chapterOrder" column="chapter_order"/>
+        <result property="relatedEventIds" column="related_event_ids"/>
+        <result property="writingStyle" column="writing_style"/>
+        <result property="content" column="content"/>
+        <result property="aiPrompt" column="ai_prompt"/>
+        <result property="status" column="status"/>
+        <result property="coverIllustrationId" column="cover_illustration_id"/>
+        <result property="coverUrl" column="cover_url"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <resultMap id="TlIllustrationResult" type="TlIllustration">
+        <id property="illustrationId" column="illustration_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="stageId" column="stage_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="chapterId" column="chapter_id"/>
+        <result property="characterId" column="character_id"/>
+        <result property="illustrationTitle" column="illustration_title"/>
+        <result property="illustrationType" column="illustration_type"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="prompt" column="prompt"/>
+        <result property="negativePrompt" column="negative_prompt"/>
+        <result property="styleType" column="style_type"/>
+        <result property="generateStatus" column="generate_status"/>
+        <result property="aiRawResult" column="ai_raw_result"/>
+        <result property="sceneDescription" column="scene_description"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <resultMap id="TlAiTaskResult" type="TlAiTask">
+        <id property="taskId" column="task_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="taskType" column="task_type"/>
+        <result property="relatedId" column="related_id"/>
+        <result property="inputContent" column="input_content"/>
+        <result property="prompt" column="prompt"/>
+        <result property="resultContent" column="result_content"/>
+        <result property="taskStatus" column="task_status"/>
+        <result property="errorMsg" column="error_msg"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="finishTime" column="finish_time"/>
+    </resultMap>
+
+    <resultMap id="TlEventRelationResult" type="TlEventRelation">
+        <id property="relationId" column="relation_id"/>
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="sourceEventId" column="source_event_id"/>
+        <result property="targetEventId" column="target_event_id"/>
+        <result property="relationType" column="relation_type"/>
+        <result property="relationDesc" column="relation_desc"/>
+        <result property="aiGenerated" column="ai_generated"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <resultMap id="TlUserProfileResult" type="TlUserProfile">
+        <id property="profileId" column="profile_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatarUrl" column="avatar_url"/>
+        <result property="bio" column="bio"/>
+        <result property="creatorTitle" column="creator_title"/>
+        <result property="homepageCoverUrl" column="homepage_cover_url"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <resultMap id="TimelineStatResult" type="TimelineStat">
+        <result property="worldlineId" column="worldline_id"/>
+        <result property="eventCount" column="event_count"/>
+        <result property="stageCount" column="stage_count"/>
+        <result property="chapterCount" column="chapter_count"/>
+        <result property="illustrationCount" column="illustration_count"/>
+        <result property="divergenceScore" column="divergence_score"/>
+    </resultMap>
+
+    <sql id="selectWorldlineColumns">
+        select (select u.user_id from app_user u where u.user_name = w.create_by) as creator_id, w.worldline_id, w.worldline_name, w.game_name, w.main_country, w.start_year, w.current_year,
+               w.narrative_style, w.description, w.cover_url, w.visibility, w.divergence_score,
+               w.create_by, w.create_time, w.update_by, w.update_time, w.remark,
+               (select count(1) from tl_event e where e.worldline_id = w.worldline_id) as event_count,
+               (select count(1) from tl_stage s where s.worldline_id = w.worldline_id) as stage_count,
+               (select count(1) from tl_chapter c where c.worldline_id = w.worldline_id) as chapter_count,
+               (select count(1) from tl_illustration i where i.worldline_id = w.worldline_id and i.generate_status != '5') as illustration_count
+          from tl_worldline w
+    </sql>
+
+    <select id="selectWorldlineList" parameterType="TlWorldline" resultMap="TlWorldlineResult">
+        <include refid="selectWorldlineColumns"/>
+        <where>
+            <if test="worldlineName != null and worldlineName != ''">
+                and w.worldline_name like concat('%', #{worldlineName}, '%')
+            </if>
+            <if test="gameName != null and gameName != ''">
+                and w.game_name like concat('%', #{gameName}, '%')
+            </if>
+            <if test="mainCountry != null and mainCountry != ''">
+                and w.main_country like concat('%', #{mainCountry}, '%')
+            </if>
+            <if test="visibility != null and visibility != ''">
+                and w.visibility = #{visibility}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and w.create_by like concat('%', #{createBy}, '%')
+            </if>
+        </where>
+        order by w.update_time desc, w.create_time desc, w.worldline_id desc
+    </select>
+
+    <select id="selectPublicWorldlineList" parameterType="TlWorldline" resultMap="TlWorldlineResult">
+        <include refid="selectWorldlineColumns"/>
+        <where>
+            and w.visibility = '1'
+            <if test="worldlineName != null and worldlineName != ''">
+                and w.worldline_name like concat('%', #{worldlineName}, '%')
+            </if>
+            <if test="gameName != null and gameName != ''">
+                and w.game_name like concat('%', #{gameName}, '%')
+            </if>
+            <if test="mainCountry != null and mainCountry != ''">
+                and w.main_country like concat('%', #{mainCountry}, '%')
+            </if>
+            <if test="narrativeStyle != null and narrativeStyle != ''">
+                and w.narrative_style like concat('%', #{narrativeStyle}, '%')
+            </if>
+        </where>
+        order by w.update_time desc, w.create_time desc, w.worldline_id desc
+    </select>
+
+    <select id="selectMyWorldlineList" resultMap="TlWorldlineResult">
+        <include refid="selectWorldlineColumns"/>
+        where w.create_by = #{createBy}
+        order by w.update_time desc, w.create_time desc, w.worldline_id desc
+    </select>
+
+    <select id="selectWorldlineById" parameterType="Long" resultMap="TlWorldlineResult">
+        <include refid="selectWorldlineColumns"/>
+        where w.worldline_id = #{worldlineId}
+    </select>
+
+    <insert id="insertWorldline" parameterType="TlWorldline" useGeneratedKeys="true" keyProperty="worldlineId">
+        insert into tl_worldline
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="worldlineName != null and worldlineName != ''">worldline_name,</if>
+            <if test="gameName != null and gameName != ''">game_name,</if>
+            <if test="mainCountry != null and mainCountry != ''">main_country,</if>
+            <if test="startYear != null">start_year,</if>
+            <if test="currentYear != null">current_year,</if>
+            <if test="narrativeStyle != null and narrativeStyle != ''">narrative_style,</if>
+            <if test="description != null">description,</if>
+            <if test="coverUrl != null and coverUrl != ''">cover_url,</if>
+            <if test="visibility != null and visibility != ''">visibility,</if>
+            <if test="divergenceScore != null">divergence_score,</if>
+            <if test="createBy != null">create_by,</if>
+            create_time,
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="worldlineName != null and worldlineName != ''">#{worldlineName},</if>
+            <if test="gameName != null and gameName != ''">#{gameName},</if>
+            <if test="mainCountry != null and mainCountry != ''">#{mainCountry},</if>
+            <if test="startYear != null">#{startYear},</if>
+            <if test="currentYear != null">#{currentYear},</if>
+            <if test="narrativeStyle != null and narrativeStyle != ''">#{narrativeStyle},</if>
+            <if test="description != null">#{description},</if>
+            <if test="coverUrl != null and coverUrl != ''">#{coverUrl},</if>
+            <if test="visibility != null and visibility != ''">#{visibility},</if>
+            <if test="divergenceScore != null">#{divergenceScore},</if>
+            <if test="createBy != null">#{createBy},</if>
+            CURRENT_TIMESTAMP,
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWorldline" parameterType="TlWorldline">
+        update tl_worldline
+        <set>
+            <if test="worldlineName != null and worldlineName != ''">worldline_name = #{worldlineName},</if>
+            <if test="gameName != null">game_name = #{gameName},</if>
+            <if test="mainCountry != null">main_country = #{mainCountry},</if>
+            <if test="startYear != null">start_year = #{startYear},</if>
+            <if test="currentYear != null">current_year = #{currentYear},</if>
+            <if test="narrativeStyle != null">narrative_style = #{narrativeStyle},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="coverUrl != null">cover_url = #{coverUrl},</if>
+            <if test="visibility != null">visibility = #{visibility},</if>
+            <if test="divergenceScore != null">divergence_score = #{divergenceScore},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where worldline_id = #{worldlineId}
+    </update>
+
+    <delete id="deleteWorldlineByIds">
+        delete from tl_worldline where worldline_id in
+        <foreach item="worldlineId" collection="array" open="(" separator="," close=")">
+            #{worldlineId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteWorldlineById" parameterType="Long">
+        delete from tl_worldline where worldline_id = #{worldlineId}
+    </delete>
+
+    <update id="updateWorldlineCover">
+        update tl_worldline set cover_url = #{coverUrl}, update_by = #{updateBy}, update_time = CURRENT_TIMESTAMP
+        where worldline_id = #{worldlineId}
+    </update>
+
+    <update id="updateWorldlineVisibility">
+        update tl_worldline set visibility = #{visibility}, update_by = #{updateBy}, update_time = CURRENT_TIMESTAMP
+        where worldline_id = #{worldlineId}
+    </update>
+
+    <update id="updateWorldlineDivergence">
+        update tl_worldline set divergence_score = #{divergenceScore}, update_time = CURRENT_TIMESTAMP
+        where worldline_id = #{worldlineId}
+    </update>
+
+    <select id="selectWorldlineStat" parameterType="Long" resultMap="TimelineStatResult">
+        select (select u.user_id from app_user u where u.user_name = w.create_by) as creator_id, w.worldline_id,
+               (select count(1) from tl_event e where e.worldline_id = w.worldline_id) as event_count,
+               (select count(1) from tl_stage s where s.worldline_id = w.worldline_id) as stage_count,
+               (select count(1) from tl_chapter c where c.worldline_id = w.worldline_id) as chapter_count,
+               (select count(1) from tl_illustration i where i.worldline_id = w.worldline_id and i.generate_status != '5') as illustration_count,
+               w.divergence_score
+          from tl_worldline w
+         where w.worldline_id = #{worldlineId}
+    </select>
+
+    <select id="selectScreenshotList" resultMap="TlScreenshotResult">
+        select screenshot_id, worldline_id, image_url, original_name, ai_status, ai_raw_result, draft_event_json,
+               create_by, create_time, update_by, update_time, remark
+          from tl_screenshot
+        <where>
+            <if test="worldlineId != null">and worldline_id = #{worldlineId}</if>
+        </where>
+         order by create_time desc, screenshot_id desc
+    </select>
+
+    <select id="selectScreenshotById" resultMap="TlScreenshotResult">
+        select screenshot_id, worldline_id, image_url, original_name, ai_status, ai_raw_result, draft_event_json,
+               create_by, create_time, update_by, update_time, remark
+          from tl_screenshot
+         where screenshot_id = #{screenshotId}
+    </select>
+
+    <insert id="insertScreenshot" parameterType="TlScreenshot" useGeneratedKeys="true" keyProperty="screenshotId">
+        insert into tl_screenshot(worldline_id, image_url, original_name, ai_status, ai_raw_result, draft_event_json, create_by, create_time, remark)
+        values(#{worldlineId}, #{imageUrl}, #{originalName}, #{aiStatus}, #{aiRawResult}, #{draftEventJson}, #{createBy}, CURRENT_TIMESTAMP, #{remark})
+    </insert>
+
+    <update id="updateScreenshot" parameterType="TlScreenshot">
+        update tl_screenshot
+        <set>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="originalName != null">original_name = #{originalName},</if>
+            <if test="aiStatus != null">ai_status = #{aiStatus},</if>
+            <if test="aiRawResult != null">ai_raw_result = #{aiRawResult},</if>
+            <if test="draftEventJson != null">draft_event_json = #{draftEventJson},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where screenshot_id = #{screenshotId}
+    </update>
+
+    <delete id="deleteScreenshotById">
+        delete from tl_screenshot where screenshot_id = #{screenshotId}
+    </delete>
+
+    <select id="selectEventList" parameterType="TlEvent" resultMap="TlEventResult">
+        select event_id, worldline_id, screenshot_id, stage_id, event_title, event_date, event_year, event_type,
+               country, related_forces, importance_level, divergence_flag, summary, ai_description,
+               impact_analysis, novel_potential, create_by, create_time, update_by, update_time, remark
+          from tl_event
+        <where>
+            <if test="worldlineId != null">and worldline_id = #{worldlineId}</if>
+            <if test="stageId != null">and stage_id = #{stageId}</if>
+            <if test="eventTitle != null and eventTitle != ''">and event_title like concat('%', #{eventTitle}, '%')</if>
+            <if test="eventType != null and eventType != ''">and event_type = #{eventType}</if>
+            <if test="importanceLevel != null and importanceLevel != ''">and importance_level = #{importanceLevel}</if>
+            <if test="divergenceFlag != null and divergenceFlag != ''">and divergence_flag = #{divergenceFlag}</if>
+        </where>
+        order by event_year asc, event_date asc, event_id asc
+    </select>
+
+    <select id="selectEventById" resultMap="TlEventResult">
+        select event_id, worldline_id, screenshot_id, stage_id, event_title, event_date, event_year, event_type,
+               country, related_forces, importance_level, divergence_flag, summary, ai_description,
+               impact_analysis, novel_potential, create_by, create_time, update_by, update_time, remark
+          from tl_event
+         where event_id = #{eventId}
+    </select>
+
+    <insert id="insertEvent" parameterType="TlEvent" useGeneratedKeys="true" keyProperty="eventId">
+        insert into tl_event(worldline_id, screenshot_id, stage_id, event_title, event_date, event_year, event_type,
+                             country, related_forces, importance_level, divergence_flag, summary, ai_description,
+                             impact_analysis, novel_potential, create_by, create_time, remark)
+        values(#{worldlineId}, #{screenshotId}, #{stageId}, #{eventTitle}, #{eventDate}, #{eventYear}, #{eventType},
+               #{country}, #{relatedForces}, #{importanceLevel}, #{divergenceFlag}, #{summary}, #{aiDescription},
+               #{impactAnalysis}, #{novelPotential}, #{createBy}, CURRENT_TIMESTAMP, #{remark})
+    </insert>
+
+    <update id="updateEvent" parameterType="TlEvent">
+        update tl_event
+        <set>
+            <if test="screenshotId != null">screenshot_id = #{screenshotId},</if>
+            <if test="stageId != null">stage_id = #{stageId},</if>
+            <if test="eventTitle != null">event_title = #{eventTitle},</if>
+            <if test="eventDate != null">event_date = #{eventDate},</if>
+            <if test="eventYear != null">event_year = #{eventYear},</if>
+            <if test="eventType != null">event_type = #{eventType},</if>
+            <if test="country != null">country = #{country},</if>
+            <if test="relatedForces != null">related_forces = #{relatedForces},</if>
+            <if test="importanceLevel != null">importance_level = #{importanceLevel},</if>
+            <if test="divergenceFlag != null">divergence_flag = #{divergenceFlag},</if>
+            <if test="summary != null">summary = #{summary},</if>
+            <if test="aiDescription != null">ai_description = #{aiDescription},</if>
+            <if test="impactAnalysis != null">impact_analysis = #{impactAnalysis},</if>
+            <if test="novelPotential != null">novel_potential = #{novelPotential},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where event_id = #{eventId}
+    </update>
+
+    <delete id="deleteEventById">
+        delete from tl_event where event_id = #{eventId}
+    </delete>
+
+    <update id="updateEventStage">
+        update tl_event set stage_id = #{stageId}, update_by = #{updateBy}, update_time = CURRENT_TIMESTAMP
+        where event_id = #{eventId}
+    </update>
+
+    <update id="markEventDivergence">
+        update tl_event
+           set divergence_flag = '1', importance_level = '4', update_by = #{updateBy}, update_time = CURRENT_TIMESTAMP
+         where event_id = #{eventId}
+    </update>
+
+    <select id="selectStageList" resultMap="TlStageResult">
+        select s.stage_id, s.worldline_id, s.stage_name, s.start_year, s.end_year, s.stage_theme, s.stage_summary,
+               s.novel_status, s.image_status, s.create_by, s.create_time, s.update_by, s.update_time, s.remark,
+               (select count(1) from tl_event e where e.stage_id = s.stage_id) as event_count
+          from tl_stage s
+         where s.worldline_id = #{worldlineId}
+         order by s.start_year asc, s.stage_id asc
+    </select>
+
+    <select id="selectStageById" resultMap="TlStageResult">
+        select s.stage_id, s.worldline_id, s.stage_name, s.start_year, s.end_year, s.stage_theme, s.stage_summary,
+               s.novel_status, s.image_status, s.create_by, s.create_time, s.update_by, s.update_time, s.remark,
+               (select count(1) from tl_event e where e.stage_id = s.stage_id) as event_count
+          from tl_stage s
+         where s.stage_id = #{stageId}
+    </select>
+
+    <insert id="insertStage" parameterType="TlStage" useGeneratedKeys="true" keyProperty="stageId">
+        insert into tl_stage(worldline_id, stage_name, start_year, end_year, stage_theme, stage_summary, novel_status,
+                             image_status, create_by, create_time, remark)
+        values(#{worldlineId}, #{stageName}, #{startYear}, #{endYear}, #{stageTheme}, #{stageSummary}, #{novelStatus},
+               #{imageStatus}, #{createBy}, CURRENT_TIMESTAMP, #{remark})
+    </insert>
+
+    <update id="updateStage" parameterType="TlStage">
+        update tl_stage
+        <set>
+            <if test="stageName != null">stage_name = #{stageName},</if>
+            <if test="startYear != null">start_year = #{startYear},</if>
+            <if test="endYear != null">end_year = #{endYear},</if>
+            <if test="stageTheme != null">stage_theme = #{stageTheme},</if>
+            <if test="stageSummary != null">stage_summary = #{stageSummary},</if>
+            <if test="novelStatus != null">novel_status = #{novelStatus},</if>
+            <if test="imageStatus != null">image_status = #{imageStatus},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where stage_id = #{stageId}
+    </update>
+
+    <delete id="deleteStageById">
+        delete from tl_stage where stage_id = #{stageId}
+    </delete>
+
+    <select id="selectNationStateList" resultMap="TlNationStateResult">
+        select state_id, worldline_id, country_name, record_year, government, economy_status, military_status,
+               diplomacy_status, social_conflict, ai_summary, create_by, create_time, update_by, update_time, remark
+          from tl_nation_state
+         where worldline_id = #{worldlineId}
+         order by record_year asc, state_id asc
+    </select>
+
+    <select id="selectNationStateById" resultMap="TlNationStateResult">
+        select state_id, worldline_id, country_name, record_year, government, economy_status, military_status,
+               diplomacy_status, social_conflict, ai_summary, create_by, create_time, update_by, update_time, remark
+          from tl_nation_state
+         where state_id = #{stateId}
+    </select>
+
+    <insert id="insertNationState" parameterType="TlNationState" useGeneratedKeys="true" keyProperty="stateId">
+        insert into tl_nation_state(worldline_id, country_name, record_year, government, economy_status, military_status,
+                                    diplomacy_status, social_conflict, ai_summary, create_by, create_time, remark)
+        values(#{worldlineId}, #{countryName}, #{recordYear}, #{government}, #{economyStatus}, #{militaryStatus},
+               #{diplomacyStatus}, #{socialConflict}, #{aiSummary}, #{createBy}, CURRENT_TIMESTAMP, #{remark})
+    </insert>
+
+    <update id="updateNationState" parameterType="TlNationState">
+        update tl_nation_state
+        <set>
+            <if test="countryName != null">country_name = #{countryName},</if>
+            <if test="recordYear != null">record_year = #{recordYear},</if>
+            <if test="government != null">government = #{government},</if>
+            <if test="economyStatus != null">economy_status = #{economyStatus},</if>
+            <if test="militaryStatus != null">military_status = #{militaryStatus},</if>
+            <if test="diplomacyStatus != null">diplomacy_status = #{diplomacyStatus},</if>
+            <if test="socialConflict != null">social_conflict = #{socialConflict},</if>
+            <if test="aiSummary != null">ai_summary = #{aiSummary},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where state_id = #{stateId}
+    </update>
+
+    <delete id="deleteNationStateById">
+        delete from tl_nation_state where state_id = #{stateId}
+    </delete>
+
+    <select id="selectCharacterList" resultMap="TlCharacterResult">
+        select character_id, worldline_id, character_name, country, faction, identity_name, character_type,
+               personality, biography, ai_generated, portrait_url, create_by, create_time, update_by, update_time, remark
+          from tl_character
+         where worldline_id = #{worldlineId}
+         order by character_id desc
+    </select>
+
+    <select id="selectCharacterById" resultMap="TlCharacterResult">
+        select character_id, worldline_id, character_name, country, faction, identity_name, character_type,
+               personality, biography, ai_generated, portrait_url, create_by, create_time, update_by, update_time, remark
+          from tl_character
+         where character_id = #{characterId}
+    </select>
+
+    <insert id="insertCharacter" parameterType="TlCharacter" useGeneratedKeys="true" keyProperty="characterId">
+        insert into tl_character(worldline_id, character_name, country, faction, identity_name, character_type,
+                                 personality, biography, ai_generated, portrait_url, create_by, create_time, remark)
+        values(#{worldlineId}, #{characterName}, #{country}, #{faction}, #{identityName}, #{characterType},
+               #{personality}, #{biography}, #{aiGenerated}, #{portraitUrl}, #{createBy}, CURRENT_TIMESTAMP, #{remark})
+    </insert>
+
+    <update id="updateCharacter" parameterType="TlCharacter">
+        update tl_character
+        <set>
+            <if test="characterName != null">character_name = #{characterName},</if>
+            <if test="country != null">country = #{country},</if>
+            <if test="faction != null">faction = #{faction},</if>
+            <if test="identityName != null">identity_name = #{identityName},</if>
+            <if test="characterType != null">character_type = #{characterType},</if>
+            <if test="personality != null">personality = #{personality},</if>
+            <if test="biography != null">biography = #{biography},</if>
+            <if test="aiGenerated != null">ai_generated = #{aiGenerated},</if>
+            <if test="portraitUrl != null">portrait_url = #{portraitUrl},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where character_id = #{characterId}
+    </update>
+
+    <delete id="deleteCharacterById">
+        delete from tl_character where character_id = #{characterId}
+    </delete>
+
+    <select id="selectChapterList" resultMap="TlChapterResult">
+        select c.chapter_id, c.worldline_id, c.stage_id, c.chapter_title, c.chapter_order, c.related_event_ids,
+               c.writing_style, c.content, c.ai_prompt, c.status, c.cover_illustration_id,
+               i.image_url as cover_url, c.create_by, c.create_time, c.update_by, c.update_time, c.remark
+          from tl_chapter c
+          left join tl_illustration i on i.illustration_id = c.cover_illustration_id
+        <where>
+            <if test="worldlineId != null">and c.worldline_id = #{worldlineId}</if>
+        </where>
+        <if test="publicOnly != null and publicOnly == true">
+           <if test="worldlineId == null">where</if>
+           <if test="worldlineId != null">and</if>
+           c.status = '3'
+        </if>
+         order by c.chapter_order asc, c.chapter_id asc
+    </select>
+
+    <select id="selectChapterById" resultMap="TlChapterResult">
+        select c.chapter_id, c.worldline_id, c.stage_id, c.chapter_title, c.chapter_order, c.related_event_ids,
+               c.writing_style, c.content, c.ai_prompt, c.status, c.cover_illustration_id,
+               i.image_url as cover_url, c.create_by, c.create_time, c.update_by, c.update_time, c.remark
+          from tl_chapter c
+          left join tl_illustration i on i.illustration_id = c.cover_illustration_id
+         where c.chapter_id = #{chapterId}
+    </select>
+
+    <insert id="insertChapter" parameterType="TlChapter" useGeneratedKeys="true" keyProperty="chapterId">
+        insert into tl_chapter(worldline_id, stage_id, chapter_title, chapter_order, related_event_ids, writing_style,
+                               content, ai_prompt, status, cover_illustration_id, create_by, create_time, remark)
+        values(#{worldlineId}, #{stageId}, #{chapterTitle}, #{chapterOrder}, #{relatedEventIds}, #{writingStyle},
+               #{content}, #{aiPrompt}, #{status}, #{coverIllustrationId}, #{createBy}, CURRENT_TIMESTAMP, #{remark})
+    </insert>
+
+    <update id="updateChapter" parameterType="TlChapter">
+        update tl_chapter
+        <set>
+            <if test="stageId != null">stage_id = #{stageId},</if>
+            <if test="chapterTitle != null">chapter_title = #{chapterTitle},</if>
+            <if test="chapterOrder != null">chapter_order = #{chapterOrder},</if>
+            <if test="relatedEventIds != null">related_event_ids = #{relatedEventIds},</if>
+            <if test="writingStyle != null">writing_style = #{writingStyle},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="aiPrompt != null">ai_prompt = #{aiPrompt},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="coverIllustrationId != null">cover_illustration_id = #{coverIllustrationId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where chapter_id = #{chapterId}
+    </update>
+
+    <delete id="deleteChapterById">
+        delete from tl_chapter where chapter_id = #{chapterId}
+    </delete>
+
+    <update id="setChapterPublic">
+        update tl_chapter set status = #{status}, update_by = #{updateBy}, update_time = CURRENT_TIMESTAMP
+        where chapter_id = #{chapterId}
+    </update>
+
+    <update id="setChapterCover">
+        update tl_chapter set cover_illustration_id = #{illustrationId}, update_by = #{updateBy}, update_time = CURRENT_TIMESTAMP
+        where chapter_id = #{chapterId}
+    </update>
+
+    <select id="selectIllustrationList" resultMap="TlIllustrationResult">
+        select illustration_id, worldline_id, stage_id, event_id, chapter_id, character_id, illustration_title,
+               illustration_type, image_url, prompt, negative_prompt, style_type, generate_status, ai_raw_result,
+               scene_description, create_by, create_time, update_by, update_time, remark
+          from tl_illustration
+        <where>
+            <if test="worldlineId != null">and worldline_id = #{worldlineId}</if>
+        </where>
+        <if test="adoptedOnly != null and adoptedOnly == true">
+           <if test="worldlineId == null">where</if>
+           <if test="worldlineId != null">and</if>
+           generate_status = '4'
+        </if>
+         order by create_time desc, illustration_id desc
+    </select>
+
+    <select id="selectIllustrationById" resultMap="TlIllustrationResult">
+        select illustration_id, worldline_id, stage_id, event_id, chapter_id, character_id, illustration_title,
+               illustration_type, image_url, prompt, negative_prompt, style_type, generate_status, ai_raw_result,
+               scene_description, create_by, create_time, update_by, update_time, remark
+          from tl_illustration
+         where illustration_id = #{illustrationId}
+    </select>
+
+    <insert id="insertIllustration" parameterType="TlIllustration" useGeneratedKeys="true" keyProperty="illustrationId">
+        insert into tl_illustration(worldline_id, stage_id, event_id, chapter_id, character_id, illustration_title,
+                                    illustration_type, image_url, prompt, negative_prompt, style_type, generate_status,
+                                    ai_raw_result, scene_description, create_by, create_time, remark)
+        values(#{worldlineId}, #{stageId}, #{eventId}, #{chapterId}, #{characterId}, #{illustrationTitle},
+               #{illustrationType}, #{imageUrl}, #{prompt}, #{negativePrompt}, #{styleType}, #{generateStatus},
+               #{aiRawResult}, #{sceneDescription}, #{createBy}, CURRENT_TIMESTAMP, #{remark})
+    </insert>
+
+    <update id="updateIllustration" parameterType="TlIllustration">
+        update tl_illustration
+        <set>
+            <if test="stageId != null">stage_id = #{stageId},</if>
+            <if test="eventId != null">event_id = #{eventId},</if>
+            <if test="chapterId != null">chapter_id = #{chapterId},</if>
+            <if test="characterId != null">character_id = #{characterId},</if>
+            <if test="illustrationTitle != null">illustration_title = #{illustrationTitle},</if>
+            <if test="illustrationType != null">illustration_type = #{illustrationType},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="prompt != null">prompt = #{prompt},</if>
+            <if test="negativePrompt != null">negative_prompt = #{negativePrompt},</if>
+            <if test="styleType != null">style_type = #{styleType},</if>
+            <if test="generateStatus != null">generate_status = #{generateStatus},</if>
+            <if test="aiRawResult != null">ai_raw_result = #{aiRawResult},</if>
+            <if test="sceneDescription != null">scene_description = #{sceneDescription},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where illustration_id = #{illustrationId}
+    </update>
+
+    <delete id="deleteIllustrationById">
+        delete from tl_illustration where illustration_id = #{illustrationId}
+    </delete>
+
+    <update id="updateIllustrationStatus">
+        update tl_illustration set generate_status = #{status}, update_by = #{updateBy}, update_time = CURRENT_TIMESTAMP
+        where illustration_id = #{illustrationId}
+    </update>
+
+    <select id="selectAiTaskList" parameterType="TlAiTask" resultMap="TlAiTaskResult">
+        select task_id, worldline_id, task_type, related_id, input_content, prompt, result_content, task_status,
+               error_msg, create_by, create_time, finish_time
+          from tl_ai_task
+        <where>
+            <if test="worldlineId != null">and worldline_id = #{worldlineId}</if>
+            <if test="taskType != null and taskType != ''">and task_type = #{taskType}</if>
+            <if test="taskStatus != null and taskStatus != ''">and task_status = #{taskStatus}</if>
+            <if test="createBy != null and createBy != ''">and create_by = #{createBy}</if>
+        </where>
+         order by create_time desc, task_id desc
+    </select>
+
+    <select id="selectRecentAiTask" resultMap="TlAiTaskResult">
+        select task_id, worldline_id, task_type, related_id, input_content, prompt, result_content, task_status,
+               error_msg, create_by, create_time, finish_time
+          from tl_ai_task
+         where create_by = #{createBy}
+         order by create_time desc, task_id desc
+         limit 10
+    </select>
+
+    <select id="selectAiTaskById" resultMap="TlAiTaskResult">
+        select task_id, worldline_id, task_type, related_id, input_content, prompt, result_content, task_status,
+               error_msg, create_by, create_time, finish_time
+          from tl_ai_task
+         where task_id = #{taskId}
+    </select>
+
+    <insert id="insertAiTask" parameterType="TlAiTask" useGeneratedKeys="true" keyProperty="taskId">
+        insert into tl_ai_task(worldline_id, task_type, related_id, input_content, prompt, result_content, task_status,
+                               error_msg, create_by, create_time, finish_time)
+        values(#{worldlineId}, #{taskType}, #{relatedId}, #{inputContent}, #{prompt}, #{resultContent}, #{taskStatus},
+               #{errorMsg}, #{createBy}, CURRENT_TIMESTAMP, #{finishTime})
+    </insert>
+
+    <update id="updateAiTask" parameterType="TlAiTask">
+        update tl_ai_task
+        <set>
+            <if test="inputContent != null">input_content = #{inputContent},</if>
+            <if test="prompt != null">prompt = #{prompt},</if>
+            <if test="resultContent != null">result_content = #{resultContent},</if>
+            <if test="taskStatus != null">task_status = #{taskStatus},</if>
+            <if test="errorMsg != null">error_msg = #{errorMsg},</if>
+            <if test="finishTime != null">finish_time = #{finishTime},</if>
+        </set>
+        where task_id = #{taskId}
+    </update>
+
+    <delete id="deleteAiTaskByIds">
+        delete from tl_ai_task where task_id in
+        <foreach item="taskId" collection="array" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </delete>
+
+    <select id="selectEventRelationList" resultMap="TlEventRelationResult">
+        select relation_id, worldline_id, source_event_id, target_event_id, relation_type, relation_desc,
+               ai_generated, create_by, create_time, update_by, update_time, remark
+          from tl_event_relation
+         where worldline_id = #{worldlineId}
+         order by relation_id desc
+    </select>
+
+    <insert id="insertEventRelation" parameterType="TlEventRelation" useGeneratedKeys="true" keyProperty="relationId">
+        insert into tl_event_relation(worldline_id, source_event_id, target_event_id, relation_type, relation_desc,
+                                      ai_generated, create_by, create_time, remark)
+        values(#{worldlineId}, #{sourceEventId}, #{targetEventId}, #{relationType}, #{relationDesc},
+               #{aiGenerated}, #{createBy}, CURRENT_TIMESTAMP, #{remark})
+    </insert>
+
+    <delete id="deleteEventRelationById">
+        delete from tl_event_relation where relation_id = #{relationId}
+    </delete>
+
+    <select id="selectUserProfileByUserId" resultMap="TlUserProfileResult">
+        select profile_id, user_id, nickname, avatar_url, bio, creator_title, homepage_cover_url, create_time, update_time
+          from tl_user_profile
+         where user_id = #{userId}
+    </select>
+
+    <select id="selectUserProfileByProfileId" resultMap="TlUserProfileResult">
+        select profile_id, user_id, nickname, avatar_url, bio, creator_title, homepage_cover_url, create_time, update_time
+          from tl_user_profile
+         where profile_id = #{profileId}
+    </select>
+
+    <insert id="insertUserProfile" parameterType="TlUserProfile" useGeneratedKeys="true" keyProperty="profileId">
+        insert into tl_user_profile(user_id, nickname, avatar_url, bio, creator_title, homepage_cover_url, create_time)
+        values(#{userId}, #{nickname}, #{avatarUrl}, #{bio}, #{creatorTitle}, #{homepageCoverUrl}, CURRENT_TIMESTAMP)
+    </insert>
+
+    <update id="updateUserProfile" parameterType="TlUserProfile">
+        update tl_user_profile
+        <set>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="bio != null">bio = #{bio},</if>
+            <if test="creatorTitle != null">creator_title = #{creatorTitle},</if>
+            <if test="homepageCoverUrl != null">homepage_cover_url = #{homepageCoverUrl},</if>
+            update_time = CURRENT_TIMESTAMP
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <select id="selectPublicCreator" resultType="map">
+        select u.user_id as userId,
+               coalesce(p.nickname, u.nick_name, u.user_name) as nickname,
+               p.avatar_url as avatarUrl,
+               p.bio,
+               p.creator_title as creatorTitle,
+               p.homepage_cover_url as homepageCoverUrl,
+               (select count(1) from tl_worldline w where w.create_by = u.user_name and w.visibility = '1') as publicWorldlineCount
+          from app_user u
+          left join tl_user_profile p on p.user_id = u.user_id
+         where u.user_id = #{userId}
+    </select>
+
+</mapper>
